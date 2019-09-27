@@ -42,4 +42,7 @@ dropList xs = foldr (.) id dropXs where
 	dropXs = map (\x -> (filter (/=x))) xs
 
 
-countWords = countUnique . words . map toLower . dropList ",.!?;"
+countWords = countUnique . words . filter (isInList (' ':['a'..'z'])) . map toLower 
+
+isInList :: Eq a => [a] -> a -> Bool
+isInList xs x = or $ map (== x) xs
