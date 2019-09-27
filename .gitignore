@@ -1,0 +1,7 @@
+*.o
+*.hi
+*.o
+*.swp
+data
+Main
+_uniq_
