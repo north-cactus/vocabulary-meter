@@ -46,3 +46,6 @@ countWords = countUnique . words . filter (isInList (' ':['a'..'z'])) . map toLo
 
 isInList :: Eq a => [a] -> a -> Bool
 isInList xs x = or $ map (== x) xs
+
+tabShowPairs :: (Show a, Show b) => [(a,b)] -> String
+tabShowPairs = foldr (++) "" . map (\(x,y) -> show x ++ "\t" ++ show y ++ "\n")
