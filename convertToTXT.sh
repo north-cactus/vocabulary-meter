@@ -1,10 +1,19 @@
 #!/bin/bash
 
-formats=".mobi .epub"
+#formats=".mobi .epub .txt .fb2"
+formats=".fb2"
 indir=./data 
 
 converter=ebook-convert 
 converter_package=calibre
+
+conv()
+{
+	out=`echo $1 | sed -e 's/ /_/g'`
+	out=`basename $out $2`.txt
+	ebook-convert "$1" in/$out && echo file: `basename $out .txt`
+}
+export -f conv 
 
 if [[ -z `which $converter` ]]
 then
@@ -13,14 +22,7 @@ else
 	for format in $formats
 	do
 		mask="$indir/*$format"
-		if [ -f $mask ]
-		then 
-			for i in $indir/*$format
-			do
-				out=`echo $i | sed -e 's/ /_/g'`
-				out=`basename $out .mobi`.txt
-				ebook-convert "$i" in/$out && echo file: `basename $out .txt`
-			done
-		fi
+		echo "$mask"
+		find . -wholename "$mask" -type f -exec bash -c 'conv "{}" "$format"' \;
 	done
 fi
