@@ -5,3 +5,6 @@
 data
 Main
 _uniq_
+in
+out
+.gitignore
